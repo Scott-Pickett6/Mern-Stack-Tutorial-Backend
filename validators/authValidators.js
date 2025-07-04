@@ -2,7 +2,7 @@ import { body, validationResult } from 'express-validator';
 
 export const validateRegister = [
     body('name')
-        .toString()
+        .isString()
         .withMessage('Name must be a string')
         .trim()
         .notEmpty()
