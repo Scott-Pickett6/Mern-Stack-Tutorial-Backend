@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Product from "../models/product.model.js";
-import db from "../models/index.js"; // Adjust the path as necessary
-const { Product } = db
+//import db from "../models/index.js";
+//const { Product } = db
 
 export const getProducts = async (req, res) => {
     try {
