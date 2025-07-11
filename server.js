@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = 5400;
 
-const allowedOrigins = ['http://localhost:5173', 'https://mernstacktutorial.netlify.app/'];
+const allowedOrigins = ['http://localhost:5173', 'https://mernstacktutorial.netlify.app'];
 
 app.use(cors({
     origin: function (origin, callback){
