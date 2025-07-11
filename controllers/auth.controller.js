@@ -6,6 +6,7 @@ const jwtSecret = process.env.JWT_SECRET || "scottssupersecretkey123!";
 
 export const register = async (req, res) => {
     const { name, email, password } = req.body;
+    console.log("Registering user:", { name, email });
 
     try {
         const existingUser = await User.findOne({ email });
