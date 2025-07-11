@@ -4,14 +4,37 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import productRoutes from './routes/product.route.js';
 import authRoutes from './routes/auth.route.js';
-
+import swaggerUiExpress from 'swagger-ui-express';
+import swaggerSpec from "./swagger/swagger.js";
 dotenv.config();
 
 const app = express();
 const PORT = 5400;
 
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173', 'https://mernstacktutorial.netlify.app/'];
+
+app.use(cors({
+    origin: function (origin, callback){
+      if(!origin){
+        return callback(null, true);
+      }
+      if(allowedOrigins.includes(origin)){
+        return callback(null, true);
+      }
+      else{
+        return callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+}));
 app.use(express.json());
+app.use(
+  "/api-docs",
+  swaggerUiExpress.serve,
+  swaggerUiExpress.setup(swaggerSpec)
+);
 
 
 
@@ -71,4 +94,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`API documentation available at http://localhost:${PORT}/api-docs`);
 });
