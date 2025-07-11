@@ -8,7 +8,7 @@ export const register = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        const existingUser = await User.findOne({ { email } });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({
                 success: false,
